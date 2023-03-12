@@ -10,8 +10,10 @@ class KsiazkaAdresowa{
     private:
         UzytkownikManager uzytkownikManager;
     public:
+        KsiazkaAdresowa();
         void rejestracjaUzytkownika();
         void wypiszWszystkichUzytkownikow();
+
 };
 
 #endif // KSIAZKAADRESOWA_H

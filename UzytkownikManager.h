@@ -20,12 +20,12 @@ private:
 
     int pobierzIdNowegoUzytkownika();
     bool czyIstniejeLogin (string login);
+    Uzytkownik podajDaneNowegoUzytkownika();
 
 public:
-
-    Uzytkownik podajDaneNowegoUzytkownika();
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
+    void wczytajUzytkownikowZPliku();
 };
 
 #endif // UZYTKOWNIKMANAGER_H
