@@ -8,6 +8,7 @@
 
 #include "Uzytkownik.h"
 #include "PlikZUzytkownikami.h"
+#include "MetodyPomocnicze.h"
 
 using namespace std;
 
@@ -17,6 +18,7 @@ private:
     int idZalogowanegoUzytkownika;
     vector <Uzytkownik> uzytkownicy;
     PlikZUzytkownikami plikZUzytkownikami;
+    MetodyPomocnicze metodyPomocnicze;
 
     int pobierzIdNowegoUzytkownika();
     bool czyIstniejeLogin (string login);
@@ -27,6 +29,12 @@ public:
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
     void wczytajUzytkownikowZPliku();
+    int logowanieUzytkownika();
+
+    void ustawIdZalogowanegoUzytkownika(int noweId);
+    int pobierzIdZalogowanegoUzytkownika();
+    void zmianaHaslaZalogowanegoUzytkownika();
+    void zapiszWszystkichUzytkownikowDoPliku(vector <Uzytkownik> &uzytkownicy);
 };
 
 #endif // UZYTKOWNIKMANAGER_H
