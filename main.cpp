@@ -4,53 +4,45 @@
 
 using namespace std;
 
-int main(){
-    KsiazkaAdresowa ksiazkaAdresowa("Uzytkownicy.txt");
-    ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika(0);
+int main() {
+    KsiazkaAdresowa ksiazkaAdresowa ("Uzytkownicy.txt");
+    ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (0);
     char wybor;
 
-    while (true)
-    {
-        if (ksiazkaAdresowa.pobierzIdZalogowanegoUzytkownika() == 0)
-        {
+    while (true) {
+        if (ksiazkaAdresowa.pobierzIdZalogowanegoUzytkownika() == 0) {
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuGlownego();
 
-            switch (wybor)
-            {
+            switch (wybor) {
             case '1':
                 ksiazkaAdresowa.rejestracjaUzytkownika();
                 break;
             case '2':
-                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika(ksiazkaAdresowa.logowanieUzytkownika());
+                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (ksiazkaAdresowa.logowanieUzytkownika() );
                 break;
             case '3':
                 ksiazkaAdresowa.wypiszWszystkichUzytkownikow();
-                system("pause");
+                system ("pause");
                 break;
             case '9':
-                exit(0);
+                exit (0);
                 break;
             default:
                 cout << endl << "Nie ma takiej opcji w menu." << endl << endl;
-                system("pause");
+                system ("pause");
                 break;
             }
-        }
-        else
-        {
-/*
-            if (adresaci.empty() == true)
-                // Pobieramy idOstatniegoAdresata, po to aby zoptymalizowac program.
-                // Dzieki temu, kiedy uztykwonik bedzie dodawal nowego adresata
-                // to nie bedziemy musieli jeszcze raz ustalac idOstatniegoAdresata
-                idOstatniegoAdresata = wczytajAdresatowZalogowanegoUzytkownikaZPliku(adresaci, idZalogowanegoUzytkownika);
-*/
+        } else {
+            //ksiazkaAdresowa.ustawNazwePlikuZAdresatami ("Adresaci.txt");
+
+            if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0)
+                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.wczytajAdresatowZalogowanegoUzytkownikaZPliku());
+
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuUzytkownika();
 
-            switch (wybor)
-            {
+            switch (wybor) {
             case '1':
-                //idOstatniegoAdresata = dodajAdresata(adresaci, idZalogowanegoUzytkownika, idOstatniegoAdresata);
+                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.dodajAdresata());
                 break;
             case '2':
                 //wyszukajAdresatowPoImieniu(adresaci);
@@ -59,7 +51,7 @@ int main(){
                 //wyszukajAdresatowPoNazwisku(adresaci);
                 break;
             case '4':
-                //wyswietlWszystkichAdresatow(adresaci);
+                ksiazkaAdresowa.wyswietlWszystkichAdresatow();
                 break;
             case '5':
                 //idUsunietegoAdresata = usunAdresata(adresaci);
@@ -72,14 +64,14 @@ int main(){
                 ksiazkaAdresowa.zmianaHaslaZalogowanegoUzytkownika();
                 break;
             case '8':
-                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika(0);
+                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (0);
                 cout << "Wylogowano cie" << endl;
-                system("pause");
+                system ("pause");
                 //adresaci.clear();
                 break;
             default:
                 cout << endl << "Nie ma takiej opcji w menu." << endl << endl;
-                system("pause");
+                system ("pause");
                 break;
             }
         }
