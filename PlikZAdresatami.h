@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 
-#include "UzytkownikManager.h"
 #include "AdresatManager.h"
 #include "MetodyPomocnicze.h"
 
@@ -11,15 +10,18 @@ using namespace std;
 
 class PlikZAdresatami {
 private:
-    string nazwaPlikuZAdresatami = "Adresaci.txt";
+    const string nazwaPlikuZAdresatami;
     Adresat adresat;
-    UzytkownikManager uzytkownikManager;
-    MetodyPomocnicze metodyPomocnicze;
+    int idOstatniegoAdresata;
     string zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(Adresat adresat);
 public:
-    PlikZAdresatami();
-    int wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+    PlikZAdresatami(string NAZWAPLIKUZADRESATAMI) : nazwaPlikuZAdresatami (NAZWAPLIKUZADRESATAMI){
+        idOstatniegoAdresata = 0;
+    };
+    int wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika, int przekazaneIdZalogowanegoUzytkownika);
     void dopiszAdresataDoPliku(Adresat adresat);
+    void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
+    int pobierzIdOstatniegoAdresata();
 };
 
 #endif // PLIKZADRESATAMI_H

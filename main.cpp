@@ -5,8 +5,7 @@
 using namespace std;
 
 int main() {
-    KsiazkaAdresowa ksiazkaAdresowa ("Uzytkownicy.txt");
-    ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (0);
+    KsiazkaAdresowa ksiazkaAdresowa ("Uzytkownicy.txt","Adresaci.txt");
     char wybor;
 
     while (true) {
@@ -18,7 +17,7 @@ int main() {
                 ksiazkaAdresowa.rejestracjaUzytkownika();
                 break;
             case '2':
-                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (ksiazkaAdresowa.logowanieUzytkownika() );
+                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (ksiazkaAdresowa.logowanieUzytkownika());
                 break;
             case '3':
                 ksiazkaAdresowa.wypiszWszystkichUzytkownikow();
@@ -33,11 +32,8 @@ int main() {
                 break;
             }
         } else {
-            //ksiazkaAdresowa.ustawNazwePlikuZAdresatami ("Adresaci.txt");
-
             if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0)
-                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.wczytajAdresatowZalogowanegoUzytkownikaZPliku());
-
+                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.pobierzRozmiarAdresaci());
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuUzytkownika();
 
             switch (wybor) {

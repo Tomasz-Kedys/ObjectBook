@@ -10,7 +10,6 @@
 
 class PlikZUzytkownikami {
 private:
-    MetodyPomocnicze metodyPomocnicze;
     const string nazwaPlikuZUzytkownikami;
     string zamienDaneUzytkownikaNaLinieZDanymiOddzielonaPionowymiKreskami (Uzytkownik uzytkownik);
     Uzytkownik pobierzDaneUzytkownika (string daneJednegoUzytkownikaOddzielonePionowymiKreskami);

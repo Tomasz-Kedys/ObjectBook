@@ -17,14 +17,15 @@ private:
     int idZalogowanegoUzytkownika;
     vector <Uzytkownik> uzytkownicy;
     PlikZUzytkownikami plikZUzytkownikami;
-    MetodyPomocnicze metodyPomocnicze;
 
     int pobierzIdNowegoUzytkownika();
     bool czyIstniejeLogin (string login);
     Uzytkownik podajDaneNowegoUzytkownika();
 
 public:
-    UzytkownikManager (string nazwaPlikuZUzytkownikami) : plikZUzytkownikami (nazwaPlikuZUzytkownikami) {};
+    UzytkownikManager (string nazwaPlikuZUzytkownikami) : plikZUzytkownikami (nazwaPlikuZUzytkownikami) {
+        idZalogowanegoUzytkownika = 0;
+    };
     void rejestracjaUzytkownika();
     void wypiszWszystkichUzytkownikow();
     void wczytajUzytkownikowZPliku();

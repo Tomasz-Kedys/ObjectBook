@@ -12,9 +12,11 @@ int KsiazkaAdresowa::logowanieUzytkownika() {
     return uzytkownikManager.logowanieUzytkownika();
 }
 
-void KsiazkaAdresowa::ustawIdZalogowanegoUzytkownika (int noweId) {
-    if (noweId >= 0)
-        uzytkownikManager.ustawIdZalogowanegoUzytkownika (noweId);
+void KsiazkaAdresowa::ustawIdZalogowanegoUzytkownika(int noweId) {
+    if (noweId >= 0){
+        uzytkownikManager.ustawIdZalogowanegoUzytkownika(noweId);
+        adresatManager.ustawIdZalogowanegoUzytkownika(noweId);
+    }
 }
 
 int KsiazkaAdresowa::pobierzIdZalogowanegoUzytkownika() {
@@ -22,7 +24,7 @@ int KsiazkaAdresowa::pobierzIdZalogowanegoUzytkownika() {
 }
 
 char KsiazkaAdresowa::wybierzOpcjeZMenuGlownego() {
-    return metodyPomocnicze.wybierzOpcjeZMenuGlownego();
+    return MetodyPomocnicze::wybierzOpcjeZMenuGlownego();
 }
 
 void KsiazkaAdresowa::zmianaHaslaZalogowanegoUzytkownika() {
@@ -30,7 +32,7 @@ void KsiazkaAdresowa::zmianaHaslaZalogowanegoUzytkownika() {
 }
 
 char KsiazkaAdresowa::wybierzOpcjeZMenuUzytkownika() {
-    return metodyPomocnicze.wybierzOpcjeZMenuUzytkownika();
+    return MetodyPomocnicze::wybierzOpcjeZMenuUzytkownika();
 }
 
 int KsiazkaAdresowa::pobierzRozmiarAdresaci(){
@@ -41,8 +43,8 @@ void KsiazkaAdresowa::ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata){
     adresatManager.ustawIdOstatniegoAdresata(noweIdOstatniegoAdresata);
 }
 
-int KsiazkaAdresowa::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){
-    return adresatManager.wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+int KsiazkaAdresowa::wczytajAdresatowZalogowanegoUzytkownikaZPliku(int przekazaneIdZalogowanegoUzytkownika){
+    return adresatManager.wczytajAdresatowZalogowanegoUzytkownikaZPliku(przekazaneIdZalogowanegoUzytkownika);
 }
 
 int KsiazkaAdresowa::dodajAdresata(){

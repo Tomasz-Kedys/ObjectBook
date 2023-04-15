@@ -66,14 +66,14 @@ int UzytkownikManager::logowanieUzytkownika() {
     string login = "", haslo = "";
 
     cout << endl << "Podaj login: ";
-    login = metodyPomocnicze.wczytajLinie (login);
+    login = MetodyPomocnicze::wczytajLinie ();
 
     vector <Uzytkownik>::iterator itr = uzytkownicy.begin();
     while (itr != uzytkownicy.end() ) {
         if (itr -> Uzytkownik::pobierzLogin() == login) {
             for (int iloscProb = 3; iloscProb > 0; iloscProb--) {
                 cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
-                haslo = metodyPomocnicze.wczytajLinie (haslo);
+                haslo = MetodyPomocnicze::wczytajLinie ();
 
                 if (itr -> Uzytkownik::pobierzHaslo() == haslo) {
                     cout << endl << "Zalogowales sie." << endl << endl;
@@ -96,7 +96,7 @@ void UzytkownikManager::zmianaHaslaZalogowanegoUzytkownika() {
 
     string noweHaslo = "";
     cout << "Podaj nowe haslo: ";
-    noweHaslo = metodyPomocnicze.wczytajLinie (noweHaslo);
+    noweHaslo = MetodyPomocnicze::wczytajLinie ();
 
     for (vector <Uzytkownik>::iterator itr = uzytkownicy.begin(); itr != uzytkownicy.end(); itr++) {
         if (itr -> Uzytkownik::pobierzId() == UzytkownikManager::pobierzIdZalogowanegoUzytkownika() ) {
@@ -119,7 +119,7 @@ int UzytkownikManager::pobierzIdZalogowanegoUzytkownika() {
 
 int UzytkownikManager::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami){
     int pozycjaRozpoczeciaIdUzytkownika = daneJednegoAdresataOddzielonePionowymiKreskami.find_first_of('|') + 1;
-    int idUzytkownika = metodyPomocnicze.konwersjaStringNaInt(metodyPomocnicze.pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika));
+    int idUzytkownika = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika));
 
     return idUzytkownika;
 }

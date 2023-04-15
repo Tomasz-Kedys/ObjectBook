@@ -1,7 +1,7 @@
 #include "AdresatManager.h"
 
-int AdresatManager::wczytajAdresatowZalogowanegoUzytkownikaZPliku() {
-    return plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+int AdresatManager::wczytajAdresatowZalogowanegoUzytkownikaZPliku(int przekazaneIdZalogowanegoUzytkownika) {
+    return plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku(idZalogowanegoUzytkownika, przekazaneIdZalogowanegoUzytkownika);
 }
 
 void AdresatManager::wyswietlWszystkichAdresatow(){
@@ -27,13 +27,8 @@ int AdresatManager::pobierzRozmiarAdresaci(){
     return AdresatManager::adresaci.size();
 }
 
-void AdresatManager::ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata){
-    idOstatniegoAdresata = noweIdOstatniegoAdresata;
-}
-
 Adresat AdresatManager::pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami)
 {
-    Adresat adresat;
     string pojedynczaDanaAdresata = "";
     int numerPojedynczejDanejAdresata = 1;
 
@@ -79,7 +74,7 @@ Adresat AdresatManager::pobierzDaneAdresata(string daneAdresataOddzielonePionowy
 int AdresatManager::pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami)
 {
     int pozycjaRozpoczeciaIdAdresata = 0;
-    int idAdresata = metodyPomocnicze.konwersjaStringNaInt(metodyPomocnicze.pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
+    int idAdresata = MetodyPomocnicze::konwersjaStringNaInt(MetodyPomocnicze::pobierzLiczbe(daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdAdresata));
     return idAdresata;
 }
 
@@ -99,48 +94,51 @@ void AdresatManager::ustawAdrecaci(Adresat adresat){
 int AdresatManager::dodajAdresata(){
 
     Adresat adresat;
-    AdresatManager adresatManager;
-    int idOstatniegoAdresata = adresatManager.pobierzDaneAdresataIdOstatniegoAdresata();
+    int idOstatniegoAdresata = plikZAdresatami.pobierzIdOstatniegoAdresata();
     system("cls");
     cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-    adresat = podajDaneNowegoAdresata();
+    adresat = podajDaneNowegoAdresata(AdresatManager::pobierzIdZalogowanegoUzytkownika());
 
     ustawAdrecaci(adresat);
     plikZAdresatami.dopiszAdresataDoPliku(adresat);
 
     return ++idOstatniegoAdresata;
-
 }
 
-int AdresatManager::pobierzDaneAdresataIdOstatniegoAdresata(){
-    AdresatManager adresatManager;
-    return adresatManager.idOstatniegoAdresata;
-}
-
-Adresat AdresatManager::podajDaneNowegoAdresata(){
+Adresat AdresatManager::podajDaneNowegoAdresata(int idZalogowanegoUzytkownika){
     Adresat adresat;
-    AdresatManager adresatManager;
-    UzytkownikManager uzytkownikManager;
-    MetodyPomocnicze metodyPomocnicze;
-
-    adresat.ustawId(++adresatManager.idOstatniegoAdresata);
-    adresat.ustawIdUzytkownika(uzytkownikManager.pobierzIdZalogowanegoUzytkownika());
+    adresat.ustawId(plikZAdresatami.pobierzIdOstatniegoAdresata()+1);
+    adresat.ustawIdUzytkownika(idZalogowanegoUzytkownika);
 
     cout << "Podaj imie: ";
-    adresat.ustawImie(metodyPomocnicze.wczytajLinie());
-    adresat.ustawImie(metodyPomocnicze.zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.pobierzImie()));
+    adresat.ustawImie(MetodyPomocnicze::wczytajLinie());
+    adresat.ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.pobierzImie()));
 
     cout << "Podaj nazwisko: ";
-    adresat.ustawNazwisko(metodyPomocnicze.wczytajLinie());
-    adresat.ustawNazwisko(metodyPomocnicze.zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.pobierzNazwisko()));
+    adresat.ustawNazwisko(MetodyPomocnicze::wczytajLinie());
+    adresat.ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(adresat.pobierzNazwisko()));
 
     cout << "Podaj numer telefonu: ";
-    adresat.ustawNumerTelefonu(metodyPomocnicze.wczytajLinie());
+    adresat.ustawNumerTelefonu(MetodyPomocnicze::wczytajLinie());
+
     cout << "Podaj email: ";
-    adresat.ustawEmail(metodyPomocnicze.wczytajLinie());
+    adresat.ustawEmail(MetodyPomocnicze::wczytajLinie());
 
     cout << "Podaj adres: ";
-    adresat.ustawAdres(metodyPomocnicze.wczytajLinie());
+    adresat.ustawAdres(MetodyPomocnicze::wczytajLinie());
 
     return adresat;
+}
+
+void AdresatManager::ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika){
+    if(noweIdZalogowanegoUzytkownika > 0)
+    idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
+}
+
+int AdresatManager::pobierzIdZalogowanegoUzytkownika(){
+    return idZalogowanegoUzytkownika;
+}
+
+void AdresatManager::ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata){
+    plikZAdresatami.ustawIdOstatniegoAdresata(noweIdOstatniegoAdresata);
 }

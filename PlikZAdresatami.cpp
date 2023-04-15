@@ -1,7 +1,6 @@
 #include "PlikZAdresatami.h"
 
-int PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){
-    AdresatManager adresatManager;
+int PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika, int przekazaneIdZalogowanegoUzytkownika){
     Adresat adresat;
     int idOstatniegoAdresata = 0;
     string daneJednegoAdresataOddzielonePionowymiKreskami = "";
@@ -13,10 +12,10 @@ int PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){
     {
         while (getline(plikTekstowy, daneJednegoAdresataOddzielonePionowymiKreskami))
         {
-            if(uzytkownikManager.pobierzIdZalogowanegoUzytkownika() == uzytkownikManager.pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(daneJednegoAdresataOddzielonePionowymiKreskami))
+            if(idZalogowanegoUzytkownika == przekazaneIdZalogowanegoUzytkownika)// co to ma byc, ogarnij z orginalu
             {
-                adresat = adresatManager.pobierzDaneAdresata(daneJednegoAdresataOddzielonePionowymiKreskami);
-                adresatManager.ustawAdrecaci(adresat);
+                adresat = AdresatManager::pobierzDaneAdresata(daneJednegoAdresataOddzielonePionowymiKreskami);
+                AdresatManager::ustawAdrecaci(adresat);
             }
         }
         daneOstaniegoAdresataWPliku = daneJednegoAdresataOddzielonePionowymiKreskami;
@@ -28,7 +27,7 @@ int PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku(){
 
     if (daneOstaniegoAdresataWPliku != "")
     {
-        idOstatniegoAdresata = adresatManager.pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(daneOstaniegoAdresataWPliku);
+        idOstatniegoAdresata = pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(daneOstaniegoAdresataWPliku);
         return idOstatniegoAdresata;
     }
     else
@@ -45,7 +44,7 @@ void PlikZAdresatami::dopiszAdresataDoPliku(Adresat adresat)
     {
         liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
 
-        if (metodyPomocnicze.czyPlikJestPusty() == true)
+        if (MetodyPomocnicze::czyPlikJestPusty() == true)
         {
             plikTekstowy << liniaZDanymiAdresata;
         }
@@ -66,8 +65,8 @@ string PlikZAdresatami::zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKre
 {
     string liniaZDanymiAdresata = "";
 
-    liniaZDanymiAdresata += metodyPomocnicze.konwerjsaIntNaString(adresat.pobierzId()) + '|';
-    liniaZDanymiAdresata += metodyPomocnicze.konwerjsaIntNaString(adresat.pobierzIdUzytkownika()) + '|';
+    liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString(adresat.pobierzId()) + '|';
+    liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString(adresat.pobierzIdUzytkownika()) + '|';
     liniaZDanymiAdresata += adresat.pobierzImie() + '|';
     liniaZDanymiAdresata += adresat.pobierzNazwisko() + '|';
     liniaZDanymiAdresata += adresat.pobierzNumerTelefonu() + '|';
@@ -75,4 +74,13 @@ string PlikZAdresatami::zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKre
     liniaZDanymiAdresata += adresat.pobierzAdres() + '|';
 
     return liniaZDanymiAdresata;
+}
+
+void PlikZAdresatami::ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata){
+    if(noweIdOstatniegoAdresata>0)
+        PlikZAdresatami::idOstatniegoAdresata = noweIdOstatniegoAdresata;
+}
+
+int PlikZAdresatami::pobierzIdOstatniegoAdresata(){
+    return PlikZAdresatami::idOstatniegoAdresata;
 }

@@ -12,9 +12,8 @@ class KsiazkaAdresowa {
 private:
     UzytkownikManager uzytkownikManager;
     AdresatManager adresatManager;
-    MetodyPomocnicze metodyPomocnicze;
 public:
-    KsiazkaAdresowa (string nazwaPlikuZUzytkownikami) : uzytkownikManager (nazwaPlikuZUzytkownikami) {
+    KsiazkaAdresowa (string nazwaPlikuZUzytkownikami, string nazwaPlikuZAdresatami) : uzytkownikManager (nazwaPlikuZUzytkownikami), adresatManager(nazwaPlikuZAdresatami){
         uzytkownikManager.wczytajUzytkownikowZPliku();
     };
     void rejestracjaUzytkownika();
@@ -28,7 +27,7 @@ public:
     void ustawNazwePlikuZAdresatami (string nazwaPlikuZAdresatami);
     int pobierzRozmiarAdresaci();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
-    int wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+    int wczytajAdresatowZalogowanegoUzytkownikaZPliku(int przekazaneIdZalogowanegoUzytkownika);
     int dodajAdresata();
     void wyswietlWszystkichAdresatow();
 };

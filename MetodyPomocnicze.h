@@ -5,24 +5,19 @@
 #include <fstream>
 #include <algorithm>
 
-
-#include "Uzytkownik.h"
-
 using namespace std;
 
 class MetodyPomocnicze {
-private:
 public:
-    bool czyPlikJestPusty ();
+    static bool czyPlikJestPusty ();
     static string konwerjsaIntNaString (int liczba);
     static int konwersjaStringNaInt(string liczba);
-    string wczytajLinie ();
-    char wybierzOpcjeZMenuGlownego();
-    char wybierzOpcjeZMenuUzytkownika();
-    char wczytajZnak();
-    string pobierzLiczbe(string tekst, int pozycjaZnaku);
-    string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
-
+    static string wczytajLinie ();
+    static char wybierzOpcjeZMenuGlownego();
+    static char wybierzOpcjeZMenuUzytkownika();
+    static char wczytajZnak();
+    static string pobierzLiczbe(string tekst, int pozycjaZnaku);
+    static string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
 };
 
 #endif // METODYPOMOCNICZE_H
