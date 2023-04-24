@@ -32,13 +32,18 @@ int main() {
                 break;
             }
         } else {
-            if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0)
-                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.pobierzRozmiarAdresaci());
+            cout << ksiazkaAdresowa.pobierzRozmiarAdresaci() << " rozmiar adresatow" << endl;
+            cout << ksiazkaAdresowa.pobierzIdOstatniegoAdresata() << " id ostatniego adresata" << endl;
+            system("pause");
+            if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0){
+                ksiazkaAdresowa.wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+            }
+
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuUzytkownika();
 
             switch (wybor) {
             case '1':
-                ksiazkaAdresowa.ustawIdOstatniegoAdresata(ksiazkaAdresowa.dodajAdresata());
+                ksiazkaAdresowa.ustawIdOstatniegoAdresata (ksiazkaAdresowa.dodajAdresata() );
                 break;
             case '2':
                 //wyszukajAdresatowPoImieniu(adresaci);
