@@ -14,7 +14,6 @@ using namespace std;
 
 class AdresatManager {
 private:
-    Adresat adresat;
     PlikZAdresatami plikZAdresatami;
     vector <Adresat> adresaci;
     int idZalogowanegoUzytkownika;
@@ -23,16 +22,15 @@ public:
     AdresatManager(string nazwaPlikuZAdresatami) : plikZAdresatami(nazwaPlikuZAdresatami){
         idZalogowanegoUzytkownika = 0;
     };
-    int wczytajAdresatowZalogowanegoUzytkownikaZPliku(int przekazaneIdZalogowanegoUzytkownika);
+    vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku();
     int pobierzRozmiarAdresaci();
-    Adresat pobierzDaneAdresata(string daneAdresataOddzielonePionowymiKreskami);
-    int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
     void wyswietlWszystkichAdresatow();
     void wyswietlDaneAdresata(Adresat adresat);
     void ustawAdrecaci(Adresat adresat);
     int dodajAdresata();
     void ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika);
     int pobierzIdZalogowanegoUzytkownika();
+    int pobierzIdOstatniegoAdresata();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
 };
 #endif // ADRESATMANAGER_H
