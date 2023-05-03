@@ -32,13 +32,9 @@ int main() {
                 break;
             }
         } else {
-            cout << ksiazkaAdresowa.pobierzRozmiarAdresaci() << " rozmiar adresatow" << endl;
-            cout << ksiazkaAdresowa.pobierzIdOstatniegoAdresata() << " id ostatniego adresata" << endl;
-            system("pause");
             if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0){
                 ksiazkaAdresowa.wczytajAdresatowZalogowanegoUzytkownikaZPliku();
             }
-
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuUzytkownika();
 
             switch (wybor) {
