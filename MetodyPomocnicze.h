@@ -8,6 +8,9 @@
 using namespace std;
 
 class MetodyPomocnicze {
+private:
+    static char wczytajZnak();
+
 public:
     static bool czyPlikJestPusty ();
     static string konwerjsaIntNaString (int liczba);
@@ -15,7 +18,6 @@ public:
     static string wczytajLinie ();
     static char wybierzOpcjeZMenuGlownego();
     static char wybierzOpcjeZMenuUzytkownika();
-    static char wczytajZnak();
     static string pobierzLiczbe(string tekst, int pozycjaZnaku);
     static string zamienPierwszaLitereNaDuzaAPozostaleNaMale(string tekst);
 };

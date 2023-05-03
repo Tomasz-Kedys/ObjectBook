@@ -30,5 +30,4 @@ public:
     int dodajAdresata();
     void wyswietlWszystkichAdresatow();
 };
-
 #endif // KSIAZKAADRESOWA_H
