@@ -1,6 +1,7 @@
 #include "PlikZAdresatami.h"
 
 vector <Adresat> PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku (int idZalogowanegoUzytkownika) {
+    Adresat adresat;
     vector <Adresat> adresaci;
     string daneJednegoAdresataOddzielonePionowymiKreskami = "";
     string daneOstaniegoAdresataWPliku = "";
@@ -42,9 +43,6 @@ void PlikZAdresatami::dopiszAdresataDoPliku (Adresat adresat) {
 
     if (plikTekstowy.good() == true) {
         liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami (adresat);
-        cout << liniaZDanymiAdresata << " zapisywanie do pliku" << endl;
-        system ("pause");
-
         if (MetodyPomocnicze::czyPlikJestPusty() == true) {
             plikTekstowy << liniaZDanymiAdresata;
         } else {
@@ -61,8 +59,7 @@ string PlikZAdresatami::zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKre
     string liniaZDanymiAdresata = "";
 
     liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString (adresat.pobierzId() ) + '|';
-    cout << adresat.pobierzIdUzytkownika() << " id uzytkownika w klasie adresat" << endl;
-    system("pause");
+
     liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString (adresat.pobierzIdUzytkownika()) + '|';
     liniaZDanymiAdresata += adresat.pobierzImie() + '|';
     liniaZDanymiAdresata += adresat.pobierzNazwisko() + '|';
@@ -70,7 +67,6 @@ string PlikZAdresatami::zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKre
     liniaZDanymiAdresata += adresat.pobierzEmail() + '|';
     liniaZDanymiAdresata += adresat.pobierzAdres() + '|';
 
-    cout << liniaZDanymiAdresata << " pobieranie danych z obiektu adresat" << endl;
     system("pause");
 
     return liniaZDanymiAdresata;
@@ -86,6 +82,7 @@ int PlikZAdresatami::pobierzIdOstatniegoAdresata() {
 }
 
 Adresat PlikZAdresatami::pobierzDaneAdresata (string daneAdresataOddzielonePionowymiKreskami) {
+    Adresat adresat;
     string pojedynczaDanaAdresata = "";
     int numerPojedynczejDanejAdresata = 1;
 

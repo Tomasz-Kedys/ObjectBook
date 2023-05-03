@@ -21,6 +21,8 @@ private:
     int pobierzIdNowegoUzytkownika();
     bool czyIstniejeLogin (string login);
     Uzytkownik podajDaneNowegoUzytkownika();
+    void zapiszWszystkichUzytkownikowDoPliku (vector <Uzytkownik> &uzytkownicy);
+    int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
 
 public:
     UzytkownikManager (string nazwaPlikuZUzytkownikami) : plikZUzytkownikami (nazwaPlikuZUzytkownikami) {
@@ -34,8 +36,6 @@ public:
     void ustawIdZalogowanegoUzytkownika (int noweId);
     int pobierzIdZalogowanegoUzytkownika();
     void zmianaHaslaZalogowanegoUzytkownika();
-    void zapiszWszystkichUzytkownikowDoPliku (vector <Uzytkownik> &uzytkownicy);
-    int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
 };
 
 #endif // UZYTKOWNIKMANAGER_H

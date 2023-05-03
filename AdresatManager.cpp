@@ -1,7 +1,6 @@
 #include "AdresatManager.h"
-
-vector <Adresat> AdresatManager::wczytajAdresatowZalogowanegoUzytkownikaZPliku () {
-    return plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku (idZalogowanegoUzytkownika);
+void AdresatManager::wczytajAdresatowZalogowanegoUzytkownikaZPliku () {
+        adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku (idZalogowanegoUzytkownika);
 }
 
 void AdresatManager::wyswietlWszystkichAdresatow() {
@@ -25,7 +24,6 @@ int AdresatManager::pobierzRozmiarAdresaci() {
 
 void AdresatManager::wyswietlDaneAdresata (Adresat adresat) {
     cout << endl << "Id:                 " << adresat.pobierzId() << endl;
-    cout << "Id Uzytkownika:     " << adresat.pobierzIdUzytkownika() << endl;
     cout << "Imie:               " << adresat.pobierzImie() << endl;
     cout << "Nazwisko:           " << adresat.pobierzNazwisko() << endl;
     cout << "Numer telefonu:     " << adresat.pobierzNumerTelefonu() << endl;
@@ -82,7 +80,6 @@ void AdresatManager::ustawIdZalogowanegoUzytkownika (int noweIdZalogowanegoUzytk
 }
 
 int AdresatManager::pobierzIdZalogowanegoUzytkownika() {
-    cout << idZalogowanegoUzytkownika << " pobierz id";
     return idZalogowanegoUzytkownika;
 }
 

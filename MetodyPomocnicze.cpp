@@ -4,8 +4,6 @@ string MetodyPomocnicze::konwerjsaIntNaString (int liczba) {
     ostringstream ss;
     ss << liczba;
     string str = ss.str();
-    cout << str << " konwersja" << endl;
-    system("pause");
     return str;
 }
 

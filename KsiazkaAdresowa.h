@@ -24,14 +24,11 @@ public:
     char wybierzOpcjeZMenuGlownego();
     char wybierzOpcjeZMenuUzytkownika();
     void zmianaHaslaZalogowanegoUzytkownika();
-    void ustawNazwePlikuZAdresatami (string nazwaPlikuZAdresatami);
     int pobierzRozmiarAdresaci();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
-    int pobierzIdOstatniegoAdresata();
     void wczytajAdresatowZalogowanegoUzytkownikaZPliku();
     int dodajAdresata();
     void wyswietlWszystkichAdresatow();
-    void wypiszIdZalogowanegoUzytkownika(int numer);
 };
 
 #endif // KSIAZKAADRESOWA_H

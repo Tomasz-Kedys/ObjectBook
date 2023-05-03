@@ -54,8 +54,3 @@ int KsiazkaAdresowa::dodajAdresata() {
 void KsiazkaAdresowa::wyswietlWszystkichAdresatow() {
     adresatManager.wyswietlWszystkichAdresatow();
 }
-
-int KsiazkaAdresowa::pobierzIdOstatniegoAdresata(){
-    return adresatManager.pobierzIdOstatniegoAdresata();
-}
-

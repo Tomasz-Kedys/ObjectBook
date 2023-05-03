@@ -18,18 +18,19 @@ private:
     vector <Adresat> adresaci;
     int idZalogowanegoUzytkownika;
     Adresat podajDaneNowegoAdresata(int idZalogowanegoUzytkownika);
+    void ustawAdrecaci(Adresat adresat);
+    void wyswietlDaneAdresata(Adresat adresat);
+    int pobierzIdZalogowanegoUzytkownika();
+
 public:
     AdresatManager(string nazwaPlikuZAdresatami) : plikZAdresatami(nazwaPlikuZAdresatami){
         idZalogowanegoUzytkownika = 0;
     };
-    vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku();
+    void wczytajAdresatowZalogowanegoUzytkownikaZPliku();
     int pobierzRozmiarAdresaci();
     void wyswietlWszystkichAdresatow();
-    void wyswietlDaneAdresata(Adresat adresat);
-    void ustawAdrecaci(Adresat adresat);
     int dodajAdresata();
     void ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika);
-    int pobierzIdZalogowanegoUzytkownika();
     int pobierzIdOstatniegoAdresata();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
 };
