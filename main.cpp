@@ -9,7 +9,7 @@ int main() {
     char wybor;
 
     while (true) {
-        if (ksiazkaAdresowa.pobierzIdZalogowanegoUzytkownika() == 0) {
+        if (ksiazkaAdresowa.czyJestZalogowanyKtos() == false) {
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuGlownego();
 
             switch (wybor) {
@@ -17,7 +17,7 @@ int main() {
                 ksiazkaAdresowa.rejestracjaUzytkownika();
                 break;
             case '2':
-                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (ksiazkaAdresowa.logowanieUzytkownika());
+                ksiazkaAdresowa.logowanieUzytkownika();
                 break;
             case '3':
                 ksiazkaAdresowa.wypiszWszystkichUzytkownikow();
@@ -31,15 +31,13 @@ int main() {
                 system ("pause");
                 break;
             }
-        } else {
-            if (ksiazkaAdresowa.pobierzRozmiarAdresaci() == 0){
-                ksiazkaAdresowa.wczytajAdresatowZalogowanegoUzytkownikaZPliku();
-            }
+        } else if(ksiazkaAdresowa.czyJestZalogowanyKtos()){
+
             wybor = ksiazkaAdresowa.wybierzOpcjeZMenuUzytkownika();
 
             switch (wybor) {
             case '1':
-                ksiazkaAdresowa.ustawIdOstatniegoAdresata (ksiazkaAdresowa.dodajAdresata() );
+                ksiazkaAdresowa.dodajAdresata();
                 break;
             case '2':
                 //wyszukajAdresatowPoImieniu(adresaci);
@@ -61,10 +59,9 @@ int main() {
                 ksiazkaAdresowa.zmianaHaslaZalogowanegoUzytkownika();
                 break;
             case '8':
-                ksiazkaAdresowa.ustawIdZalogowanegoUzytkownika (0);
+                ksiazkaAdresowa.wylogowanieUzytkowniaka();
                 cout << "Wylogowano cie" << endl;
                 system ("pause");
-                //adresaci.clear();
                 break;
             default:
                 cout << endl << "Nie ma takiej opcji w menu." << endl << endl;

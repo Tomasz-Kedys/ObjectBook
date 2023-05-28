@@ -1,7 +1,4 @@
 #include "AdresatManager.h"
-void AdresatManager::wczytajAdresatowZalogowanegoUzytkownikaZPliku () {
-        adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku (idZalogowanegoUzytkownika);
-}
 
 void AdresatManager::wyswietlWszystkichAdresatow() {
     system ("cls");
@@ -24,6 +21,7 @@ int AdresatManager::pobierzRozmiarAdresaci() {
 
 void AdresatManager::wyswietlDaneAdresata (Adresat adresat) {
     cout << endl << "Id:                 " << adresat.pobierzId() << endl;
+    //cout << "Id Uzytkoenika:     " << adresat.pobierzIdUzytkownika() << endl;
     cout << "Imie:               " << adresat.pobierzImie() << endl;
     cout << "Nazwisko:           " << adresat.pobierzNazwisko() << endl;
     cout << "Numer telefonu:     " << adresat.pobierzNumerTelefonu() << endl;
@@ -31,28 +29,27 @@ void AdresatManager::wyswietlDaneAdresata (Adresat adresat) {
     cout << "Adres:              " << adresat.pobierzAdres() << endl;
 }
 
-void AdresatManager::ustawAdrecaci (Adresat adresat) {
-    adresaci.push_back (adresat);
-}
-
-int AdresatManager::dodajAdresata() {
+void AdresatManager::dodajAdresata() {
 
     Adresat adresat;
     int idOstatniegoAdresata = plikZAdresatami.pobierzIdOstatniegoAdresata();
     system ("cls");
     cout << " >>> DODAWANIE NOWEGO ADRESATA <<<" << endl << endl;
-    adresat = podajDaneNowegoAdresata (AdresatManager::pobierzIdZalogowanegoUzytkownika() );
+    adresat = podajDaneNowegoAdresata ();
 
-    ustawAdrecaci (adresat);
-    plikZAdresatami.dopiszAdresataDoPliku (adresat);
-
-    return ++idOstatniegoAdresata;
+    adresaci.push_back (adresat);
+    if(plikZAdresatami.dopiszAdresataDoPliku (adresat)){
+        cout << "Sukcess!!!" << endl;
+    }else{
+        cout << "Dodanie adresata do pliku sie nie powiodlo!!!!" << endl;
+    }
+    plikZAdresatami.ustawIdOstatniegoAdresata(++idOstatniegoAdresata);
 }
 
-Adresat AdresatManager::podajDaneNowegoAdresata (int idZalogowanegoUzytkownika) {
+Adresat AdresatManager::podajDaneNowegoAdresata () {
     Adresat adresat;
     adresat.ustawId (plikZAdresatami.pobierzIdOstatniegoAdresata()+1);
-    adresat.ustawIdUzytkownika (idZalogowanegoUzytkownika);
+    adresat.ustawIdUzytkownika (ID_ZALOGOWANEGO_UZYTKOWNIKA);
 
     cout << "Podaj imie: ";
     adresat.ustawImie (MetodyPomocnicze::wczytajLinie() );
@@ -74,18 +71,18 @@ Adresat AdresatManager::podajDaneNowegoAdresata (int idZalogowanegoUzytkownika) 
     return adresat;
 }
 
-void AdresatManager::ustawIdZalogowanegoUzytkownika (int noweIdZalogowanegoUzytkownika) {
-    if (noweIdZalogowanegoUzytkownika > 0)
-        idZalogowanegoUzytkownika = noweIdZalogowanegoUzytkownika;
-}
-
 int AdresatManager::pobierzIdZalogowanegoUzytkownika() {
-    return idZalogowanegoUzytkownika;
+    return ID_ZALOGOWANEGO_UZYTKOWNIKA;
 }
 
 void AdresatManager::ustawIdOstatniegoAdresata (int noweIdOstatniegoAdresata) {
     plikZAdresatami.ustawIdOstatniegoAdresata (noweIdOstatniegoAdresata);
 }
+
 int AdresatManager::pobierzIdOstatniegoAdresata(){
     return plikZAdresatami.pobierzIdOstatniegoAdresata();
+}
+
+void AdresatManager::wyczyscVektorAdresatow(){
+    adresaci.clear();
 }

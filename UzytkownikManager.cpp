@@ -53,9 +53,6 @@ void UzytkownikManager::wypiszWszystkichUzytkownikow() {
         cout << uzytkownicy[i].pobierzHaslo() << endl;
     }
 }
-void UzytkownikManager::wczytajUzytkownikowZPliku() {
-    uzytkownicy = plikZUzytkownikami.wczytajUzytkownikowZPliku();
-}
 
 void UzytkownikManager::zapiszWszystkichUzytkownikowDoPliku (vector <Uzytkownik> &uzytkownicy) {
     plikZUzytkownikami.zapiszWszystkichUzytkownikowDoPliku (uzytkownicy);
@@ -65,29 +62,34 @@ int UzytkownikManager::logowanieUzytkownika() {
     Uzytkownik uzytkownik;
     string login = "", haslo = "";
 
-    cout << endl << "Podaj login: ";
-    login = MetodyPomocnicze::wczytajLinie ();
+    if (!uzytkownicy.empty()) {
+        cout << endl << "Podaj login: ";
+        login = MetodyPomocnicze::wczytajLinie ();
+        vector <Uzytkownik>::iterator itr = uzytkownicy.begin();
+        while (itr != uzytkownicy.end() ) {
+            if (itr -> Uzytkownik::pobierzLogin() == login) {
+                for (int iloscProb = 3; iloscProb > 0; iloscProb--) {
+                    cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
+                    haslo = MetodyPomocnicze::wczytajLinie ();
 
-    vector <Uzytkownik>::iterator itr = uzytkownicy.begin();
-    while (itr != uzytkownicy.end() ) {
-        if (itr -> Uzytkownik::pobierzLogin() == login) {
-            for (int iloscProb = 3; iloscProb > 0; iloscProb--) {
-                cout << "Podaj haslo. Pozostalo prob: " << iloscProb << ": ";
-                haslo = MetodyPomocnicze::wczytajLinie ();
-
-                if (itr -> Uzytkownik::pobierzHaslo() == haslo) {
-                    cout << endl << "Zalogowales sie." << endl << endl;
-                    system ("pause");
-                    return itr -> Uzytkownik::pobierzId();
+                    if (itr -> Uzytkownik::pobierzHaslo() == haslo) {
+                        cout << endl << "Zalogowales sie." << endl << endl;
+                        system ("pause");
+                        idZalogowanegoUzytkownika = itr -> Uzytkownik::pobierzId();
+                        return idZalogowanegoUzytkownika;
+                    }
                 }
+                cout << "Wprowadzono 3 razy bledne haslo." << endl;
+                system ("pause");
+                return 0;
             }
-            cout << "Wprowadzono 3 razy bledne haslo." << endl;
-            system ("pause");
-            return 0;
+            itr++;
         }
-        itr++;
+        cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
+    } else {
+        cout << "Nie ma zarejestrowanych uzytkownikow" << endl;
     }
-    cout << "Nie ma uzytkownika z takim loginem" << endl << endl;
+
     system ("pause");
     return 0;
 }
@@ -122,4 +124,11 @@ int UzytkownikManager::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami 
     int idUzytkownika = MetodyPomocnicze::konwersjaStringNaInt (MetodyPomocnicze::pobierzLiczbe (daneJednegoAdresataOddzielonePionowymiKreskami, pozycjaRozpoczeciaIdUzytkownika) );
 
     return idUzytkownika;
+}
+
+bool UzytkownikManager::czyJestZalogowanyKtos(){
+    if(idZalogowanegoUzytkownika > 0){
+        return true;
+    }else
+    return false;
 }

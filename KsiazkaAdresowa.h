@@ -11,23 +11,27 @@ using namespace std;
 class KsiazkaAdresowa {
 private:
     UzytkownikManager uzytkownikManager;
-    AdresatManager adresatManager;
+    AdresatManager *adresatManager;
+    const string NAZWA_PLIKU_Z_ADRESATAMI;
+
 public:
-    KsiazkaAdresowa (string nazwaPlikuZUzytkownikami, string nazwaPlikuZAdresatami) : uzytkownikManager (nazwaPlikuZUzytkownikami), adresatManager(nazwaPlikuZAdresatami){
-        uzytkownikManager.wczytajUzytkownikowZPliku();
+    KsiazkaAdresowa (string nazwaPlikuZUzytkownikami, string nazwaPlikuZAdresatami)
+        : uzytkownikManager (nazwaPlikuZUzytkownikami), NAZWA_PLIKU_Z_ADRESATAMI(nazwaPlikuZAdresatami){
+        adresatManager = NULL;
+    };
+    ~KsiazkaAdresowa(){
+        delete adresatManager;
+        adresatManager = NULL;
     };
     void rejestracjaUzytkownika();
+    void wylogowanieUzytkowniaka();
     void wypiszWszystkichUzytkownikow();
-    int logowanieUzytkownika();
-    void ustawIdZalogowanegoUzytkownika (int noweId);
-    int pobierzIdZalogowanegoUzytkownika();
+    void logowanieUzytkownika();
     char wybierzOpcjeZMenuGlownego();
     char wybierzOpcjeZMenuUzytkownika();
     void zmianaHaslaZalogowanegoUzytkownika();
-    int pobierzRozmiarAdresaci();
-    void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
-    void wczytajAdresatowZalogowanegoUzytkownikaZPliku();
-    int dodajAdresata();
+    void dodajAdresata();
     void wyswietlWszystkichAdresatow();
+    bool czyJestZalogowanyKtos();
 };
 #endif // KSIAZKAADRESOWA_H

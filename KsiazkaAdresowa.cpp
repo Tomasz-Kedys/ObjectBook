@@ -8,19 +8,18 @@ void KsiazkaAdresowa::rejestracjaUzytkownika() {
     uzytkownikManager.rejestracjaUzytkownika();
 }
 
-int KsiazkaAdresowa::logowanieUzytkownika() {
-    return uzytkownikManager.logowanieUzytkownika();
-}
-
-void KsiazkaAdresowa::ustawIdZalogowanegoUzytkownika (int noweId) {
-    if (noweId >= 0) {
-        uzytkownikManager.ustawIdZalogowanegoUzytkownika (noweId);
-        adresatManager.ustawIdZalogowanegoUzytkownika (noweId);
+void KsiazkaAdresowa::logowanieUzytkownika() {
+    uzytkownikManager.logowanieUzytkownika();
+    if(uzytkownikManager.czyJestZalogowanyKtos()){
+        adresatManager = new AdresatManager(NAZWA_PLIKU_Z_ADRESATAMI,uzytkownikManager.pobierzIdZalogowanegoUzytkownika());
     }
 }
 
-int KsiazkaAdresowa::pobierzIdZalogowanegoUzytkownika() {
-    return uzytkownikManager.pobierzIdZalogowanegoUzytkownika();
+bool KsiazkaAdresowa::czyJestZalogowanyKtos(){
+    if(uzytkownikManager.czyJestZalogowanyKtos()){
+        return true;
+    }else
+    return false;
 }
 
 char KsiazkaAdresowa::wybierzOpcjeZMenuGlownego() {
@@ -35,22 +34,22 @@ char KsiazkaAdresowa::wybierzOpcjeZMenuUzytkownika() {
     return MetodyPomocnicze::wybierzOpcjeZMenuUzytkownika();
 }
 
-int KsiazkaAdresowa::pobierzRozmiarAdresaci() {
-    return adresatManager.pobierzRozmiarAdresaci();
+void KsiazkaAdresowa::wylogowanieUzytkowniaka(){
+    adresatManager->wyczyscVektorAdresatow();
+    delete adresatManager;
+    adresatManager = NULL;
+    uzytkownikManager.ustawIdZalogowanegoUzytkownika (0);
 }
 
-void KsiazkaAdresowa::ustawIdOstatniegoAdresata (int noweIdOstatniegoAdresata) {
-    adresatManager.ustawIdOstatniegoAdresata (noweIdOstatniegoAdresata);
-}
-
-void KsiazkaAdresowa::wczytajAdresatowZalogowanegoUzytkownikaZPliku () {
-    adresatManager.wczytajAdresatowZalogowanegoUzytkownikaZPliku ();
-}
-
-int KsiazkaAdresowa::dodajAdresata() {
-    return adresatManager.dodajAdresata();
+void KsiazkaAdresowa::dodajAdresata() {
+    if(uzytkownikManager.czyJestZalogowanyKtos())
+    adresatManager->dodajAdresata();
+    else{
+        cout << "Najpierw trzeba sie zalogowac " << endl;
+        system("pause");
+    }
 }
 
 void KsiazkaAdresowa::wyswietlWszystkichAdresatow() {
-    adresatManager.wyswietlWszystkichAdresatow();
+    adresatManager->wyswietlWszystkichAdresatow();
 }
