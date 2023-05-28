@@ -7,7 +7,7 @@ vector <Adresat> PlikZAdresatami::wczytajAdresatowZalogowanegoUzytkownikaZPliku 
     string daneOstaniegoAdresataWPliku = "";
     fstream plikTekstowy;
 
-    plikTekstowy.open (nazwaPlikuZAdresatami.c_str(), ios::in);
+    plikTekstowy.open (NAZWA_PLIKU_Z_ADRESATAMI.c_str(), ios::in);
 
     if (plikTekstowy.good() == true) {
         while (getline (plikTekstowy, daneJednegoAdresataOddzielonePionowymiKreskami) ) {
@@ -36,38 +36,36 @@ int PlikZAdresatami::pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami (s
     return idUzytkownika;
 }
 
-void PlikZAdresatami::dopiszAdresataDoPliku (Adresat adresat) {
+bool PlikZAdresatami::dopiszAdresataDoPliku (Adresat adresat) {
     string liniaZDanymiAdresata = "";
     fstream plikTekstowy;
-    plikTekstowy.open (nazwaPlikuZAdresatami.c_str(), ios::out | ios::app);
+    plikTekstowy.open (NAZWA_PLIKU_Z_ADRESATAMI.c_str(), ios::out | ios::app);
 
     if (plikTekstowy.good() == true) {
         liniaZDanymiAdresata = zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami (adresat);
-        if (MetodyPomocnicze::czyPlikJestPusty() == true) {
+        if (MetodyPomocnicze::czyPlikJestPusty (plikTekstowy) == true) {
             plikTekstowy << liniaZDanymiAdresata;
         } else {
             plikTekstowy << endl << liniaZDanymiAdresata ;
         }
+        plikTekstowy.close();
+        return true;
     } else {
         cout << "Nie udalo sie otworzyc pliku i zapisac w nim danych." << endl;
     }
-    plikTekstowy.close();
-    system ("pause");
+    return false;
 }
 
 string PlikZAdresatami::zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami (Adresat adresat) {
     string liniaZDanymiAdresata = "";
 
     liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString (adresat.pobierzId() ) + '|';
-
     liniaZDanymiAdresata += MetodyPomocnicze::konwerjsaIntNaString (adresat.pobierzIdUzytkownika()) + '|';
     liniaZDanymiAdresata += adresat.pobierzImie() + '|';
     liniaZDanymiAdresata += adresat.pobierzNazwisko() + '|';
     liniaZDanymiAdresata += adresat.pobierzNumerTelefonu() + '|';
     liniaZDanymiAdresata += adresat.pobierzEmail() + '|';
     liniaZDanymiAdresata += adresat.pobierzAdres() + '|';
-
-    system("pause");
 
     return liniaZDanymiAdresata;
 }

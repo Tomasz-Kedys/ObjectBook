@@ -16,22 +16,22 @@ class AdresatManager {
 private:
     PlikZAdresatami plikZAdresatami;
     vector <Adresat> adresaci;
-    int idZalogowanegoUzytkownika;
-    Adresat podajDaneNowegoAdresata(int idZalogowanegoUzytkownika);
+    const int ID_ZALOGOWANEGO_UZYTKOWNIKA;
+
+    Adresat podajDaneNowegoAdresata();
     void ustawAdrecaci(Adresat adresat);
     void wyswietlDaneAdresata(Adresat adresat);
     int pobierzIdZalogowanegoUzytkownika();
 
 public:
-    AdresatManager(string nazwaPlikuZAdresatami) : plikZAdresatami(nazwaPlikuZAdresatami){
-        idZalogowanegoUzytkownika = 0;
+    AdresatManager(string nazwaPlikuZAdresatami, int idZalogowanegoUzytkownika) : plikZAdresatami(nazwaPlikuZAdresatami), ID_ZALOGOWANEGO_UZYTKOWNIKA(idZalogowanegoUzytkownika){
+        adresaci = plikZAdresatami.wczytajAdresatowZalogowanegoUzytkownikaZPliku (ID_ZALOGOWANEGO_UZYTKOWNIKA);
     };
-    void wczytajAdresatowZalogowanegoUzytkownikaZPliku();
     int pobierzRozmiarAdresaci();
     void wyswietlWszystkichAdresatow();
-    int dodajAdresata();
-    void ustawIdZalogowanegoUzytkownika(int noweIdZalogowanegoUzytkownika);
+    void dodajAdresata();
     int pobierzIdOstatniegoAdresata();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
+    void wyczyscVektorAdresatow();
 };
 #endif // ADRESATMANAGER_H

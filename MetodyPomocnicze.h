@@ -4,15 +4,16 @@
 #include <sstream>
 #include <fstream>
 #include <algorithm>
+#include <unistd.h>
+#include <sys/stat.h>
 
 using namespace std;
 
 class MetodyPomocnicze {
 private:
     static char wczytajZnak();
-
 public:
-    static bool czyPlikJestPusty ();
+    static bool czyPlikJestPusty (fstream &plikTekstowy);
     static string konwerjsaIntNaString (int liczba);
     static int konwersjaStringNaInt(string liczba);
     static string wczytajLinie ();
