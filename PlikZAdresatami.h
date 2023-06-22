@@ -19,6 +19,7 @@ private:
     const string nazwaTymczasowegoPlikuZAdresatami = "temp.txt";
     void usunPlik(string nazwaPlikuZRozszerzeniem);
     void zmienNazwePliku(string staraNazwa, string nowaNazwa);
+    void pobierzZPlikuIdOstatniegoAdresata();
 
 public:
     PlikZAdresatami (string nazwaPlikuZAdresatami) : PlikTekstowy (nazwaPlikuZAdresatami) {
@@ -32,6 +33,8 @@ public:
     int pobierzIdOstatniegoAdresata();
     void zaktualizujDaneWybranegoAdresata (Adresat adresat, int idEdytowanegoAdresata);
     int zwrocNumerLiniiSzukanegoAdresata(int idAdresata);
+    void usunWybranaLinieWPliku(int numerUsuwanejLinii);
+    void podajIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata, int idOstatniegoAdresata);
 };
 
 #endif // PLIKZADRESATAMI_H
