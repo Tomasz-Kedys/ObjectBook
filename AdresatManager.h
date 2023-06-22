@@ -38,5 +38,7 @@ public:
     void wyszukajAdresatowPoImieniu();
     void wyszukajAdresatowPoNazwisku();
     void edytujAdresata();
+    void usunAdresata();
+    int podajIdWybranegoAdresata();
 };
 #endif // ADRESATMANAGER_H

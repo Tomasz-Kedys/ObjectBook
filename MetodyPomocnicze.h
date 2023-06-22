@@ -10,9 +10,8 @@
 using namespace std;
 
 class MetodyPomocnicze {
-private:
-    static char wczytajZnak();
 public:
+    static char wczytajZnak();
     static string konwerjsaIntNaString (int liczba);
     static int konwersjaStringNaInt(string liczba);
     static string wczytajLinie ();
