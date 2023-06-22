@@ -10,16 +10,16 @@ void KsiazkaAdresowa::rejestracjaUzytkownika() {
 
 void KsiazkaAdresowa::logowanieUzytkownika() {
     uzytkownikManager.logowanieUzytkownika();
-    if(uzytkownikManager.czyJestZalogowanyKtos()){
-        adresatManager = new AdresatManager(NAZWA_PLIKU_Z_ADRESATAMI,uzytkownikManager.pobierzIdZalogowanegoUzytkownika());
+    if (uzytkownikManager.czyJestZalogowanyKtos() ) {
+        adresatManager = new AdresatManager (NAZWA_PLIKU_Z_ADRESATAMI,uzytkownikManager.pobierzIdZalogowanegoUzytkownika() );
     }
 }
 
-bool KsiazkaAdresowa::czyJestZalogowanyKtos(){
-    if(uzytkownikManager.czyJestZalogowanyKtos()){
+bool KsiazkaAdresowa::czyJestZalogowanyKtos() {
+    if (uzytkownikManager.czyJestZalogowanyKtos() ) {
         return true;
-    }else
-    return false;
+    } else
+        return false;
 }
 
 char KsiazkaAdresowa::wybierzOpcjeZMenuGlownego() {
@@ -34,7 +34,7 @@ char KsiazkaAdresowa::wybierzOpcjeZMenuUzytkownika() {
     return MetodyPomocnicze::wybierzOpcjeZMenuUzytkownika();
 }
 
-void KsiazkaAdresowa::wylogowanieUzytkowniaka(){
+void KsiazkaAdresowa::wylogowanieUzytkowniaka() {
     adresatManager->wyczyscVektorAdresatow();
     delete adresatManager;
     adresatManager = NULL;
@@ -42,14 +42,26 @@ void KsiazkaAdresowa::wylogowanieUzytkowniaka(){
 }
 
 void KsiazkaAdresowa::dodajAdresata() {
-    if(uzytkownikManager.czyJestZalogowanyKtos())
-    adresatManager->dodajAdresata();
-    else{
+    if (uzytkownikManager.czyJestZalogowanyKtos() )
+        adresatManager->dodajAdresata();
+    else {
         cout << "Najpierw trzeba sie zalogowac " << endl;
-        system("pause");
+        system ("pause");
     }
 }
 
 void KsiazkaAdresowa::wyswietlWszystkichAdresatow() {
     adresatManager->wyswietlWszystkichAdresatow();
+}
+
+void KsiazkaAdresowa::wyszukajAdresatowPoImieniu() {
+    adresatManager->wyszukajAdresatowPoImieniu();
+}
+
+void KsiazkaAdresowa::wyszukajAdresatowPoNazwisku() {
+    adresatManager->wyszukajAdresatowPoNazwisku();
+}
+
+void KsiazkaAdresowa::edytujAdresata(){
+    adresatManager->edytujAdresata();
 }

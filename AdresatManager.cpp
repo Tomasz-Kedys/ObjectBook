@@ -38,12 +38,12 @@ void AdresatManager::dodajAdresata() {
     adresat = podajDaneNowegoAdresata ();
 
     adresaci.push_back (adresat);
-    if(plikZAdresatami.dopiszAdresataDoPliku (adresat)){
+    if (plikZAdresatami.dopiszAdresataDoPliku (adresat) ) {
         cout << "Sukcess!!!" << endl;
-    }else{
+    } else {
         cout << "Dodanie adresata do pliku sie nie powiodlo!!!!" << endl;
     }
-    plikZAdresatami.ustawIdOstatniegoAdresata(++idOstatniegoAdresata);
+    plikZAdresatami.ustawIdOstatniegoAdresata (++idOstatniegoAdresata);
 }
 
 Adresat AdresatManager::podajDaneNowegoAdresata () {
@@ -79,10 +79,141 @@ void AdresatManager::ustawIdOstatniegoAdresata (int noweIdOstatniegoAdresata) {
     plikZAdresatami.ustawIdOstatniegoAdresata (noweIdOstatniegoAdresata);
 }
 
-int AdresatManager::pobierzIdOstatniegoAdresata(){
+int AdresatManager::pobierzIdOstatniegoAdresata() {
     return plikZAdresatami.pobierzIdOstatniegoAdresata();
 }
 
-void AdresatManager::wyczyscVektorAdresatow(){
+void AdresatManager::wyczyscVektorAdresatow() {
     adresaci.clear();
+}
+
+void AdresatManager::wyszukajAdresatowPoImieniu() {
+    string imiePoszukiwanegoAdresata = "";
+    int iloscAdresatow = 0;
+
+    system ("cls");
+    if (!adresaci.empty() ) {
+        cout << ">>> WYSZUKIWANIE ADRESATOW O IMIENIU <<<" << endl << endl;
+
+        cout << "Wyszukaj adresatow o imieniu: ";
+        imiePoszukiwanegoAdresata = MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale (MetodyPomocnicze::wczytajLinie() );
+
+        for (vector <Adresat>::iterator  itr = adresaci.begin(); itr != adresaci.end(); itr++) {
+            if (itr -> Adresat::pobierzImie() == imiePoszukiwanegoAdresata) {
+                wyswietlDaneAdresata (*itr);
+                iloscAdresatow++;
+            }
+        }
+        wyswietlIloscWyszukanychAdresatow (iloscAdresatow);
+    } else {
+        cout << endl << "Ksiazka adresowa jest pusta" << endl << endl;
+    }
+    cout << endl;
+    system ("pause");
+}
+
+void AdresatManager::wyszukajAdresatowPoNazwisku() {
+    string nazwiskoPoszukiwanegoAdresata = "";
+    int iloscAdresatow = 0;
+
+    system ("cls");
+    if (!adresaci.empty() ) {
+        cout << ">>> WYSZUKIWANIE ADRESATOW O NAZWISKU <<<" << endl << endl;
+
+        cout << "Wyszukaj adresatow o nazwisku: ";
+        nazwiskoPoszukiwanegoAdresata = MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale (MetodyPomocnicze::wczytajLinie() );
+
+        for (vector <Adresat>::iterator itr = adresaci.begin(); itr != adresaci.end(); itr++) {
+            if (itr -> Adresat::pobierzNazwisko() == nazwiskoPoszukiwanegoAdresata) {
+                wyswietlDaneAdresata (*itr);
+                iloscAdresatow++;
+            }
+        }
+        wyswietlIloscWyszukanychAdresatow (iloscAdresatow);
+    } else {
+        cout << endl << "Ksiazka adresowa jest pusta." << endl << endl;
+    }
+    cout << endl;
+    system ("pause");
+}
+
+void AdresatManager::wyswietlIloscWyszukanychAdresatow (int iloscAdresatow) {
+    if (iloscAdresatow == 0)
+        cout << endl << "W ksiazce adresowej nie ma adresatow z tymi danymi." << endl;
+    else
+        cout << endl << "Ilosc adresatow w ksiazce adresowej wynosi: " << iloscAdresatow << endl << endl;
+}
+
+void AdresatManager::edytujAdresata(){
+    system("cls");
+    Adresat adresat;
+    int idEdytowanegoAdresata = 0;
+    string liniaZDanymiAdresata = "";
+
+    cout << ">>> EDYCJA WYBRANEGO ADRESATA <<<" << endl << endl;
+    idEdytowanegoAdresata = MetodyPomocnicze::wczytajLiczbeCalkowita();
+
+    char wybor;
+    bool czyIstniejeAdresat = false;
+
+    for (int i = 0; i < (int)adresaci.size(); i++)
+    {
+        if (adresaci[i].pobierzId() == idEdytowanegoAdresata)
+        {
+            czyIstniejeAdresat = true;
+            wybor = MetodyPomocnicze::wybierzOpcjeZMenuEdycja();
+
+            switch (wybor)
+            {
+            case '1':
+                cout << "Podaj nowe imie: ";
+                adresaci[i].ustawImie(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
+                zaktualizujDaneWybranegoAdresata(adresaci[i], idEdytowanegoAdresata);
+                break;
+            case '2':
+                cout << "Podaj nowe nazwisko: ";
+                adresaci[i].ustawNazwisko(MetodyPomocnicze::zamienPierwszaLitereNaDuzaAPozostaleNaMale(MetodyPomocnicze::wczytajLinie()));
+                zaktualizujDaneWybranegoAdresata(adresaci[i], idEdytowanegoAdresata);
+                break;
+            case '3':
+                cout << "Podaj nowy numer telefonu: ";
+                adresaci[i].ustawNumerTelefonu(MetodyPomocnicze::wczytajLinie());
+                zaktualizujDaneWybranegoAdresata(adresaci[i], idEdytowanegoAdresata);
+                break;
+            case '4':
+                cout << "Podaj nowy email: ";
+                adresaci[i].ustawEmail(MetodyPomocnicze::wczytajLinie());
+                zaktualizujDaneWybranegoAdresata(adresaci[i], idEdytowanegoAdresata);
+                break;
+            case '5':
+                cout << "Podaj nowy adres zamieszkania: ";
+                adresaci[i].ustawAdres(MetodyPomocnicze::wczytajLinie());
+                zaktualizujDaneWybranegoAdresata(adresaci[i], idEdytowanegoAdresata);
+                break;
+            case '6':
+                cout << endl << "Powrot do menu uzytkownika" << endl << endl;
+                break;
+            default:
+                cout << endl << "Nie ma takiej opcji w menu! Powrot do menu uzytkownika." << endl << endl;
+                break;
+            }
+        }
+    }
+    if (czyIstniejeAdresat == false)
+    {
+        cout << endl << "Nie ma takiego adresata." << endl << endl;
+    }
+    system("pause");
+}
+
+void AdresatManager::zaktualizujDaneWybranegoAdresata(Adresat adresat, int idEdytowanegoAdresata)
+{
+    int numerLiniiEdytowanegoAdresata = 0;
+    string liniaZDanymiAdresata = "";
+
+    numerLiniiEdytowanegoAdresata = plikZAdresatami.zwrocNumerLiniiSzukanegoAdresata(idEdytowanegoAdresata);
+    liniaZDanymiAdresata = plikZAdresatami.zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(adresat);
+    plikZAdresatami.edytujWybranaLinieWPliku(numerLiniiEdytowanegoAdresata, liniaZDanymiAdresata);
+
+    cout << endl << "Dane zostaly zaktualizowane." << endl << endl;
 }

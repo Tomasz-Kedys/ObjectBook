@@ -22,6 +22,8 @@ private:
     void ustawAdrecaci(Adresat adresat);
     void wyswietlDaneAdresata(Adresat adresat);
     int pobierzIdZalogowanegoUzytkownika();
+    void wyswietlIloscWyszukanychAdresatow(int iloscAdresatow);
+    void zaktualizujDaneWybranegoAdresata(Adresat adresat, int idEdytowanegoAdresata);
 
 public:
     AdresatManager(string nazwaPlikuZAdresatami, int idZalogowanegoUzytkownika) : plikZAdresatami(nazwaPlikuZAdresatami), ID_ZALOGOWANEGO_UZYTKOWNIKA(idZalogowanegoUzytkownika){
@@ -33,5 +35,8 @@ public:
     int pobierzIdOstatniegoAdresata();
     void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
     void wyczyscVektorAdresatow();
+    void wyszukajAdresatowPoImieniu();
+    void wyszukajAdresatowPoNazwisku();
+    void edytujAdresata();
 };
 #endif // ADRESATMANAGER_H

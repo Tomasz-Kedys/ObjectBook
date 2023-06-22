@@ -33,5 +33,8 @@ public:
     void dodajAdresata();
     void wyswietlWszystkichAdresatow();
     bool czyJestZalogowanyKtos();
+    void wyszukajAdresatowPoImieniu();
+    void wyszukajAdresatowPoNazwisku();
+    void edytujAdresata();
 };
 #endif // KSIAZKAADRESOWA_H
