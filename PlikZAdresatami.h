@@ -6,26 +6,32 @@
 
 #include "MetodyPomocnicze.h"
 #include "Adresat.h"
+#include "PlikTekstowy.h"
 
 using namespace std;
 
-class PlikZAdresatami {
+class PlikZAdresatami : public PlikTekstowy {
 private:
-    const string NAZWA_PLIKU_Z_ADRESATAMI;
     int idOstatniegoAdresata;
-    string zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami(Adresat adresat);
-    int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-    int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami(string daneJednegoAdresataOddzielonePionowymiKreskami);
-    Adresat pobierzDaneAdresata(string daneJednegoAdresataOddzielonePionowymiKreskami);
+    int pobierzIdUzytkownikaZDanychOddzielonychPionowymiKreskami (string daneJednegoAdresataOddzielonePionowymiKreskami);
+    int pobierzIdAdresataZDanychOddzielonychPionowymiKreskami (string daneJednegoAdresataOddzielonePionowymiKreskami);
+    Adresat pobierzDaneAdresata (string daneJednegoAdresataOddzielonePionowymiKreskami);
+    const string nazwaTymczasowegoPlikuZAdresatami = "temp.txt";
+    void usunPlik(string nazwaPlikuZRozszerzeniem);
+    void zmienNazwePliku(string staraNazwa, string nowaNazwa);
 
 public:
-    PlikZAdresatami(string nazwaPlikuZAdresatami) : NAZWA_PLIKU_Z_ADRESATAMI (nazwaPlikuZAdresatami){
+    PlikZAdresatami (string nazwaPlikuZAdresatami) : PlikTekstowy (nazwaPlikuZAdresatami) {
         idOstatniegoAdresata = 0;
     };
-    vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku(int idZalogowanegoUzytkownika);
-    void ustawIdOstatniegoAdresata(int noweIdOstatniegoAdresata);
-    bool dopiszAdresataDoPliku(Adresat adresat);
+    void edytujWybranaLinieWPliku(int numerEdytowanejLinii, string liniaZDanymiAdresataOddzielonePionowymiKreskami);
+    string zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami (Adresat adresat);
+    vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku (int idZalogowanegoUzytkownika);
+    void ustawIdOstatniegoAdresata (int noweIdOstatniegoAdresata);
+    bool dopiszAdresataDoPliku (Adresat adresat);
     int pobierzIdOstatniegoAdresata();
+    void zaktualizujDaneWybranegoAdresata (Adresat adresat, int idEdytowanegoAdresata);
+    int zwrocNumerLiniiSzukanegoAdresata(int idAdresata);
 };
 
 #endif // PLIKZADRESATAMI_H
