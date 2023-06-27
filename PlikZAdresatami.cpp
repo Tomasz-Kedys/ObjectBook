@@ -133,6 +133,51 @@ void PlikZAdresatami::zaktualizujDaneWybranegoAdresata (Adresat adresat, int idE
     cout << endl << "Dane zostaly zaktualizowane." << endl << endl;
 }
 
+void PlikZAdresatami::usunWybranegoAdresataZPliku(int idAdresata) {
+
+	fstream odczytywanyPlikTekstowy, tymczasowyPlikTekstowy;
+	bool czyIstniejeAdresat = false;
+    int numerLiniiWPlikuTekstowym = 1;
+	int numerLiniiUsuwanegoAdresata = 1;
+    string wczytanaLinia = "";
+
+    odczytywanyPlikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
+    tymczasowyPlikTekstowy.open(nazwaTymczasowegoPlikuZAdresatami.c_str(), ios::out | ios::app);
+
+    if ((odczytywanyPlikTekstowy.good() == true) && (idAdresata != 0)) {
+        while (getline (odczytywanyPlikTekstowy, wczytanaLinia) ) {
+            if (idAdresata == pobierzIdAdresataZDanychOddzielonychPionowymiKreskami (wczytanaLinia) ) {
+                czyIstniejeAdresat = true;
+
+				// Tych przypadkow jest tyle, gdyz chcemy osiagnac taki efekt,
+				// aby na koncu pliku nie bylo pustej linii
+				if (numerLiniiWPlikuTekstowym == numerLiniiUsuwanegoAdresata) {}
+				else if (numerLiniiWPlikuTekstowym == 1 && numerLiniiWPlikuTekstowym != numerLiniiUsuwanegoAdresata)
+					tymczasowyPlikTekstowy << wczytanaLinia;
+				else if (numerLiniiWPlikuTekstowym == 2 && numerLiniiUsuwanegoAdresata == 1)
+					tymczasowyPlikTekstowy << wczytanaLinia;
+				else if (numerLiniiWPlikuTekstowym > 2 && numerLiniiUsuwanegoAdresata == 1)
+					tymczasowyPlikTekstowy << endl << wczytanaLinia;
+				else if (numerLiniiWPlikuTekstowym > 1 && numerLiniiUsuwanegoAdresata != 1)
+					tymczasowyPlikTekstowy << endl << wczytanaLinia;
+				numerLiniiWPlikuTekstowym++;
+
+				odczytywanyPlikTekstowy.close();
+				tymczasowyPlikTekstowy.close();
+
+            } else
+                numerLiniiWPlikuTekstowym++;
+        }
+        if (czyIstniejeAdresat == false) {
+            odczytywanyPlikTekstowy.close();
+			tymczasowyPlikTekstowy.close();
+
+        }
+    }
+	usunPlik(pobierzNazwePliku());
+	zmienNazwePliku(nazwaTymczasowegoPlikuZAdresatami, pobierzNazwePliku());
+}
+
 int PlikZAdresatami::zwrocNumerLiniiSzukanegoAdresata (int idAdresata) {
     bool czyIstniejeAdresat = false;
     int numerLiniiWPlikuTekstowym = 1;
@@ -156,6 +201,7 @@ int PlikZAdresatami::zwrocNumerLiniiSzukanegoAdresata (int idAdresata) {
     }
     return 0;
 }
+
 void PlikZAdresatami::edytujWybranaLinieWPliku (int numerEdytowanejLinii, string liniaZDanymiAdresataOddzielonePionowymiKreskami) {
     fstream odczytywanyPlikTekstowy, tymczasowyPlikTekstowy;
     string wczytanaLinia = "";
@@ -199,40 +245,6 @@ void PlikZAdresatami::zmienNazwePliku(string staraNazwa, string nowaNazwa)
     if (rename(staraNazwa.c_str(), nowaNazwa.c_str()) == 0) {}
     else
         cout << "Nazwa pliku nie zostala zmieniona." << staraNazwa << endl;
-}
-
-void PlikZAdresatami::usunWybranaLinieWPliku(int numerUsuwanejLinii)
-{
-    fstream odczytywanyPlikTekstowy, tymczasowyPlikTekstowy;
-    string wczytanaLinia = "";
-    int numerWczytanejLinii = 1;
-
-    odczytywanyPlikTekstowy.open(pobierzNazwePliku().c_str(), ios::in);
-    tymczasowyPlikTekstowy.open(nazwaTymczasowegoPlikuZAdresatami.c_str(), ios::out | ios::app);
-
-    if (odczytywanyPlikTekstowy.good() == true && numerUsuwanejLinii != 0)
-    {
-        while (getline(odczytywanyPlikTekstowy, wczytanaLinia))
-        {
-            // Tych przypadkow jest tyle, gdyz chcemy osiagnac taki efekt,
-            // aby na koncu pliku nie bylo pustej linii
-            if (numerWczytanejLinii == numerUsuwanejLinii) {}
-            else if (numerWczytanejLinii == 1 && numerWczytanejLinii != numerUsuwanejLinii)
-                tymczasowyPlikTekstowy << wczytanaLinia;
-            else if (numerWczytanejLinii == 2 && numerUsuwanejLinii == 1)
-                tymczasowyPlikTekstowy << wczytanaLinia;
-            else if (numerWczytanejLinii > 2 && numerUsuwanejLinii == 1)
-                tymczasowyPlikTekstowy << endl << wczytanaLinia;
-            else if (numerWczytanejLinii > 1 && numerUsuwanejLinii != 1)
-                tymczasowyPlikTekstowy << endl << wczytanaLinia;
-            numerWczytanejLinii++;
-        }
-        odczytywanyPlikTekstowy.close();
-        tymczasowyPlikTekstowy.close();
-
-        usunPlik(pobierzNazwePliku());
-        zmienNazwePliku(nazwaTymczasowegoPlikuZAdresatami, pobierzNazwePliku());
-    }
 }
 
 void PlikZAdresatami::podajIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata, int idOstatniegoAdresata)

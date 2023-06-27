@@ -33,7 +33,7 @@ public:
     int pobierzIdOstatniegoAdresata();
     void zaktualizujDaneWybranegoAdresata (Adresat adresat, int idEdytowanegoAdresata);
     int zwrocNumerLiniiSzukanegoAdresata(int idAdresata);
-    void usunWybranaLinieWPliku(int numerUsuwanejLinii);
+    void usunWybranegoAdresataZPliku(int idAdresata);
     void podajIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata, int idOstatniegoAdresata);
 };
 
