@@ -25,16 +25,14 @@ public:
     PlikZAdresatami (string nazwaPlikuZAdresatami) : PlikTekstowy (nazwaPlikuZAdresatami) {
         idOstatniegoAdresata = 0;
     };
-    void edytujWybranaLinieWPliku(int numerEdytowanejLinii, string liniaZDanymiAdresataOddzielonePionowymiKreskami);
     string zamienDaneAdresataNaLinieZDanymiOddzielonymiPionowymiKreskami (Adresat adresat);
     vector <Adresat> wczytajAdresatowZalogowanegoUzytkownikaZPliku (int idZalogowanegoUzytkownika);
     void ustawIdOstatniegoAdresata (int noweIdOstatniegoAdresata);
     bool dopiszAdresataDoPliku (Adresat adresat);
     int pobierzIdOstatniegoAdresata();
-    void zaktualizujDaneWybranegoAdresata (Adresat adresat, int idEdytowanegoAdresata);
-    int zwrocNumerLiniiSzukanegoAdresata(int idAdresata);
     void usunWybranegoAdresataZPliku(int idAdresata);
     void podajIdOstatniegoAdresataPoUsunieciuWybranegoAdresata(int idUsuwanegoAdresata, int idOstatniegoAdresata);
+    void edytujAdresataWPliku(Adresat adresat);
 };
 
 #endif // PLIKZADRESATAMI_H
