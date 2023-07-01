@@ -23,7 +23,7 @@ private:
     void wyswietlDaneAdresata(Adresat adresat);
     int pobierzIdZalogowanegoUzytkownika();
     void wyswietlIloscWyszukanychAdresatow(int iloscAdresatow);
-    void zaktualizujDaneWybranegoAdresata(Adresat adresat, int idEdytowanegoAdresata);
+    void zaktualizujDaneWybranegoAdresata(Adresat adresat);
 
 public:
     AdresatManager(string nazwaPlikuZAdresatami, int idZalogowanegoUzytkownika) : plikZAdresatami(nazwaPlikuZAdresatami), ID_ZALOGOWANEGO_UZYTKOWNIKA(idZalogowanegoUzytkownika){
