@@ -151,6 +151,7 @@ void AdresatManager::edytujAdresata() {
     string liniaZDanymiAdresata = "";
 
     cout << ">>> EDYCJA WYBRANEGO ADRESATA <<<" << endl << endl;
+    cout << "Podaj id adresata : ";
     idEdytowanegoAdresata = MetodyPomocnicze::wczytajLiczbeCalkowita();
 
     char wybor;
@@ -228,8 +229,8 @@ void AdresatManager::usunAdresata() {
                 plikZAdresatami.usunWybranegoAdresataZPliku (idUsuwanegoAdresata);
                 adresaci.erase (itr);
                 cout << endl << endl << "Szukany adresat zostal USUNIETY" << endl << endl;
-                plikZAdresatami.podajIdOstatniegoAdresataPoUsunieciuWybranegoAdresata (idUsuwanegoAdresata,plikZAdresatami.pobierzIdOstatniegoAdresata());
                 system ("pause");
+                return;
             } else {
                 cout << endl << endl << "Wybrany adresat NIE zostal usuniety" << endl << endl;
                 system ("pause");
